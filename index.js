@@ -17,7 +17,7 @@ const questions = [
   {
     type: 'list',
     message: 'Please choose a shape for your logo.',
-    name: 'listShape',
+    name: 'shape',
     choices: ['Circle', 'Square', 'Triangle'],
   },
   {
@@ -39,6 +39,6 @@ inquirer.prompt(questions).then(({ text, textColor, shape, shapeColor }) => {
   logoRenderer.applyShape(shapeInstance);
 
   const svg = logoRenderer.renderLogo();
-  fs.writeFileSync('logo.svg', svg);
+  fs.writeFileSync('./examples/logo.svg', svg);
   console.log('Generated logo.svg');
 });
