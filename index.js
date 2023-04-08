@@ -26,3 +26,19 @@ const questions = [
     name: 'shapeColor',
   },
 ];
+
+inquirer.prompt(questions).then(({ text, textColor, shape, shapeColor }) => {
+  const shapeInstance = {
+    Circle: new Circle(text, textColor, shapeColor),
+    Triangle: new Triangle(text, textColor, shapeColor),
+    Square: new Square(text, textColor, shapeColor),
+  }[shape];
+
+  const logoRenderer = new LogoRenderer();
+  logoRenderer.applyText(text, textColor);
+  logoRenderer.applyShape(shapeInstance);
+
+  const svg = logoRenderer.renderLogo();
+  fs.writeFileSync('logo.svg', svg);
+  console.log('Generated logo.svg');
+});
