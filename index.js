@@ -1,6 +1,9 @@
+// Importing necessary modules and classes
+
 const inquirer = require('inquirer');
 const { Circle, Square, Triangle, LogoRenderer } = require('./lib/shapes');
 const fs = require('fs');
+// Prompting the user with the questions array, and then executing the following function when the user has answered all of them
 
 const questions = [
   {
@@ -26,6 +29,7 @@ const questions = [
     name: 'shapeColor',
   },
 ];
+// Prompting the user with the questions array, and then executing the following function when the user has answered all of them
 
 inquirer.prompt(questions).then(({ text, textColor, shape, shapeColor }) => {
   const shapeInstance = {
@@ -33,10 +37,12 @@ inquirer.prompt(questions).then(({ text, textColor, shape, shapeColor }) => {
     Triangle: new Triangle(text, textColor, shapeColor),
     Square: new Square(text, textColor, shapeColor),
   }[shape];
+  // Creating a new LogoRenderer object and applying the user-provided text and shape to it
 
   const logoRenderer = new LogoRenderer();
   logoRenderer.applyText(text, textColor);
   logoRenderer.applyShape(shapeInstance);
+  // Rendering the logo as an SVG string and writing it to a file
 
   const svg = logoRenderer.renderLogo();
   fs.writeFileSync('./examples/logo.svg', svg);
